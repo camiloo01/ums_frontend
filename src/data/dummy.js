@@ -485,23 +485,31 @@ export const links = [
     title: 'Tablas',
     links: [
       {
-        name: 'donadores',
+        name: 'Usuarios',
+        icon: <RiFolderLine/>
+      },
+      {
+        name: 'Roles',
+        icon: <RiFolderLine/>
+      },
+      {
+        name: 'Donadores',
         icon: <RiHandCoinLine />,
       },
       {
-        name: 'donaciones',
+        name: 'Donaciones',
         icon: <RiHeartAddLine />,
       },
       {
-        name: 'beneficiarios',
+        name: 'Beneficiarios',
         icon: <AiOutlineIdcard />,
       },
       {
-        name: 'ayudantes',
+        name: 'Ayudantes',
         icon: <RiTeamLine />,
       },
       {
-        name: 'tareas',
+        name: 'Tareas',
         icon: <RiListCheck3 />,
       },
       {
@@ -512,11 +520,6 @@ export const links = [
          name: 'Insumos',
          icon: <RiShoppingBasket2Line/>
        },
-
-       {
-        name: 'Roles',
-        icon: <RiFolderLine/>
-      }
     ],
   },
 

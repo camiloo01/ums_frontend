@@ -13,7 +13,7 @@ const ModalUsuario = ({ onClose, item }) => {
         contraseña: '',
         confirmarContraseña: '', // Agregado para la confirmación de contraseña
         tipo: 'Administrador',
-        active: true,
+        estado: item.estado || 'activo',
       
     });
     const [errors, setErrors] = useState({});
@@ -27,7 +27,7 @@ const ModalUsuario = ({ onClose, item }) => {
                 contraseña: '',
                 confirmarContraseña: '',
                 tipo: item.tipo || 'Administrador',
-                active: item.active || true,
+                estado: item.estado || 'activo',
     
             });
         } else {
@@ -37,7 +37,7 @@ const ModalUsuario = ({ onClose, item }) => {
                 contraseña: '',
                 confirmarContraseña: '',
                 tipo: 'Administrador',
-                active: true,
+                estado: item.estado || 'activo',
     
             });
         }

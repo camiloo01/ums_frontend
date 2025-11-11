@@ -57,19 +57,6 @@ export const UsuariosProvider = ({ children }) => {
     }
   };
 
-  const deleteUsuario = async (id) => {
-    try {
-      setLoading(true);
-      await deleteUsuarioRequest(id);
-      setUsuarios(usuarios.filter((usuario) => usuario._id !== id));
-    } catch (error) {
-      console.error('Error al eliminar usuario:', error);
-      setErrors(['Error al eliminar usuario']);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const disableUsuario = async (id) => {
     try {
       setLoading(true);
@@ -95,7 +82,6 @@ export const UsuariosProvider = ({ children }) => {
         usuarios,
         createUsuario,
         updateUsuario,
-        deleteUsuario,
         disableUsuario,
         errors,
         loading,

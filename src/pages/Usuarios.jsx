@@ -20,7 +20,6 @@ const CRUDUser = () => {
     const {
         createUsuario,
         updateUsuario,
-        deleteUsuario,
         usuarios,
         errors
     } = useUsuarios(); // Hook for managing users
@@ -36,8 +35,8 @@ const CRUDUser = () => {
 
     useEffect(() => {
         const filtered = usuarios.filter(user =>
-            user.usuario.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchTerm.toLowerCase())
+            user.usuario?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email?.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredData(filtered);
         setCurrentPage(1); // Reset to first page on new search
@@ -68,16 +67,6 @@ const CRUDUser = () => {
         }
     };
 
-    const handleDeleteButtonClick = async (id) => {
-        try {
-            await deleteUsuario(id);
-            showToast('Usuario eliminado exitosamente', 'success');
-        } catch (error) {
-            console.error('Error deleting user:', error);
-            showToast('Error al eliminar el usuario', 'error');
-        }
-    };
-
     const handleViewButtonClick = (user) => {
         setSelectedItem(user);
         setShowViewModal(true);
@@ -104,7 +93,7 @@ const CRUDUser = () => {
             showAlert(
                 {
                     title: '¿Estás seguro?',
-                    text: `El estado del usuario cambiará a ${item.active ? 'inactivo' : 'activo'}`,
+                    text: `El estado del usuario cambiará a ${item.estado === 'activo' ? 'inactivo' : 'activo'}`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Sí, cambiar',
@@ -113,7 +102,7 @@ const CRUDUser = () => {
                 async () => {
                     const updatedItem = {
                         ...item,
-                        active: !item.active
+                        estado: item.estado === 'activo' ? 'inactivo' : 'activo'
                     };
                     try {
                         await handleCreateOrUpdate(updatedItem);
@@ -154,14 +143,14 @@ const CRUDUser = () => {
                             </TableHead>
                             <TableBody>
                                 {currentData.map((user, index) => (
-                                    <TableRow key={index} isActive={user.active} cols={5}>
+                                    <TableRow key={index} isActive={user.estado === 'activo'} cols={5}>
                                         <TableCell label="Usuario">{user.usuario}</TableCell>
                                         <TableCell label="Email">{user.email.substring(0,18) + '...'}</TableCell>
                                         <TableCell label="Rol">{user.tipo?.nombre}</TableCell>
                                         <TableCell label="Estado" className='pl-10'>
                                             <Switch
                                                 name="active"
-                                                checked={user.active}
+                                                checked={user.estado === 'activo'}
                                                 onChange={() => handleSwitchChange(user._id)}
                                             />
                                         </TableCell>
@@ -171,7 +160,6 @@ const CRUDUser = () => {
                                                     item={user}
                                                     handleViewButtonClick={handleViewButtonClick}
                                                     handleEditButtonClick={handleEditButtonClick}
-                                                    handleDeleteButtonClick={handleDeleteButtonClick}
                                                 />
                                             </div>
                                         </TableCell>
@@ -193,9 +181,8 @@ const CRUDUser = () => {
                                 item={user}
                                 onEdit={handleEditButtonClick}
                                 onView={handleViewButtonClick}
-                                onDelete={handleDeleteButtonClick}
                                 onSwitchChange={handleSwitchChange}
-                                isActive={user.active}
+                                isActive={user.estado === 'activo'}
                             />
                         ))}
                         <Pagination
